@@ -1,0 +1,61 @@
+			 sptalk README
+
+1.Introduction
+
+sptalk is an XMPP server.
+
+More detail about XMPP:
+
+	http://www.xmpp.org/rfcs/
+
+sptalk bases on spxml/spserver/spdict. More detail about spserver and spdict:
+
+	http://code.google.com/p/spxml/
+	http://code.google.com/p/spserver/
+	http://code.google.com/p/spdict/
+
+The sptalk code was developed under Linux, but has also been tested under
+Solaris.
+
+You can get the code from the sptalk home page:
+
+	http://code.google.com/p/sptalk/
+
+2.Building
+
+Before building sptalk, spxml/spserver/spdict must been installed.
+About detail revision of spxml/spserver/spdict, please see ChangLog.
+
+You can get the code of spxml/spserver/spdict their home page.
+
+Edit sptalk/Makefile to specify the path of spserver and spdict:
+
+	SPXML_INCL = -I<path_to_spxml_include>
+	SPXML_LIB  = -L<path_to_spxml_library> -lspxml
+
+	SPSERVER_INCL = -I<path_to_spserver_include>
+	SPSERVER_LIB  = -L<path_to_spserver_library> -lspserver
+
+	SPDICT_INCL = -I<path_to_spdict_include>
+	SPDICT_LIB  = -L<path_to_spdict_library> -lspdict
+
+To build sptalk, type
+
+$ cd sptalk
+$ make
+
+This will build the sptalkd program.
+
+$ ./sptalkd -v
+Usage: ./sptalkd [-p <port>] [-t <threads>]
+
+$ ./sptalkd
+[msg] This server is listening on port [5222].
+
+
+Reports of successful use of sptalk are appreciated.
+
+Enjoy!
+
+				-- stephen liu <stephen.nil@gmail.com>
+
