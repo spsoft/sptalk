@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <syslog.h>
 
 #include "spxmppaction.hpp"
 
@@ -216,6 +217,7 @@ int SP_XmppAction :: doPresenceAsk( SP_XmppPresence * prPacket, SP_Response * re
 	SP_XmppJid * fromJid )
 {
 	char buffer[ 1024 ] = { 0 };
+	char subType[ 64 ] = { "none" };
 
 	// response to sender
 
@@ -223,6 +225,8 @@ int SP_XmppAction :: doPresenceAsk( SP_XmppPresence * prPacket, SP_Response * re
 			fromJid->getNode(), prPacket->getTo()->getBareJid() );
 
 	if( NULL != oldItem ) {
+		snprintf( subType, sizeof( subType ), "%s", oldItem->getSubType() );
+
 		snprintf( buffer, sizeof( buffer ), "<iq type=\"set\"><query xmlns=\"jabber:iq:roster\">"
 			"<item jid=\"%s\" subscription=\"%s\" ask=\"subscribe\"/></query></iq>",
 			prPacket->getTo()->getBareJid(), oldItem->getSubType() );
@@ -237,24 +241,28 @@ int SP_XmppAction :: doPresenceAsk( SP_XmppPresence * prPacket, SP_Response * re
 
 	// forward to recipients
 
-	if( NULL != prPacket->getStatus() ) {
-		snprintf( buffer, sizeof( buffer ), "<presence from=\"%s\" to=\"%s\" type=\"subscribe\">"
-			"<status>%s</status></presence>",
-			fromJid->getBareJid(), prPacket->getTo()->getBareJid(), prPacket->getStatus() );
-	} else {
-		snprintf( buffer, sizeof( buffer ), "<presence from=\"%s\" to=\"%s\" type=\"subscribe\"/>",
-			fromJid->getBareJid(), prPacket->getTo()->getBareJid() );
-	}
+	if( 0 != strcasecmp( subType, "both" ) ) {
+		if( NULL != prPacket->getStatus() ) {
+			snprintf( buffer, sizeof( buffer ), "<presence from=\"%s\" to=\"%s\" type=\"subscribe\">"
+				"<status>%s</status></presence>",
+				fromJid->getBareJid(), prPacket->getTo()->getBareJid(), prPacket->getStatus() );
+		} else {
+			snprintf( buffer, sizeof( buffer ), "<presence from=\"%s\" to=\"%s\" type=\"subscribe\"/>",
+				fromJid->getBareJid(), prPacket->getTo()->getBareJid() );
+		}
 
-	SP_Sid_t toSid;
-	if( 0 == SP_XmppSessionManager::getDefault()->getSid( prPacket->getTo()->getNode(),
-			prPacket->getTo()->getResource(), &toSid ) ) {
-		SP_Message * msg = new SP_Message();
-		msg->getToList()->add( toSid );
-		msg->getMsg()->append( buffer );
-		response->addMessage( msg );
+		SP_Sid_t toSid;
+		if( 0 == SP_XmppSessionManager::getDefault()->getSid( prPacket->getTo()->getNode(),
+				prPacket->getTo()->getResource(), &toSid ) ) {
+			SP_Message * msg = new SP_Message();
+			msg->getToList()->add( toSid );
+			msg->getMsg()->append( buffer );
+			response->addMessage( msg );
+		} else {
+			// TODO: save as offline message
+		}
 	} else {
-		// TODO: save as offline message
+		syslog( LOG_NOTICE, "ignore presence ask" );
 	}
 
 	return 0;
