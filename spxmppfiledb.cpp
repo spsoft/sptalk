@@ -13,6 +13,7 @@
 #include <fcntl.h>
 #include <assert.h>
 #include <string.h>
+#include <limits.h>
 
 #include "spxmppfiledb.hpp"
 #include "spxmppentity.hpp"
@@ -23,8 +24,6 @@
 static SP_XmlDomParser * loadFile( const char * path )
 {
 	SP_XmlDomParser * parser = NULL;
-
-	assert( NULL == strstr( path, "null"  ) );
 
 	int fd = open( path, O_RDWR );
 	if( fd >= 0 ) {
@@ -60,16 +59,21 @@ static int saveToFile( const char * path, SP_XmlDomParser * parser )
 {
 	int ret = -1;
 
-	int fd = open( path, O_RDWR | O_CREAT | O_TRUNC, 0770 );
+	char tmpPath[ _POSIX_PATH_MAX ] = { 0 };
+	snprintf( tmpPath, sizeof( tmpPath ), "%s.tmp", path );
+
+	int fd = open( tmpPath, O_RDWR | O_CREAT | O_TRUNC, 0770 );
 	if( fd >= 0 ) {
 		SP_XmlDomBuffer buffer( parser->getDocument()->getRootElement() );
-
-assert( NULL == strstr( buffer.getBuffer(), "null" ) );
 
 		write( fd, buffer.getBuffer(), buffer.getSize() );
 		close( fd );
 
-		ret = 0;
+		if( 0 == rename( tmpPath, path ) ) {
+			ret = 0;
+		} else {
+			syslog( LOG_WARNING, "cannot rename %s -> %s", tmpPath, path );
+		}
 	} else {
 		syslog( LOG_WARNING, "cannot open file <%s>", path );
 	}
