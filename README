@@ -8,7 +8,10 @@ More detail about XMPP:
 
 	http://www.xmpp.org/rfcs/
 
-sptalk bases on spxml/spserver/spdict. More detail about spserver and spdict:
+sptalk bases on spxml/spserver/spdict, and spserver bases on libevent.
+More detail about these projects please refer their home pages:
+
+	http://www.monkey.org/~provos/libevent/
 
 	http://code.google.com/p/spxml/
 	http://code.google.com/p/spserver/
@@ -23,18 +26,20 @@ You can get the code from the sptalk home page:
 
 2.Building
 
-Before building sptalk, spxml/spserver/spdict must been installed.
+Before building sptalk, libevent/spxml/spserver/spdict must been installed.
 About detail revision of spxml/spserver/spdict, please see ChangLog.
 
-You can get the code of spxml/spserver/spdict their home page.
+You can get the code of spxml/spserver/spdict from their home pages.
 
-Edit sptalk/Makefile to specify the path of spserver and spdict:
+Edit sptalk/Makefile to specify the path of libevent/spxml/spserver/spdict:
 
 	SPXML_INCL = -I<path_to_spxml_include>
 	SPXML_LIB  = -L<path_to_spxml_library> -lspxml
 
 	SPSERVER_INCL = -I<path_to_spserver_include>
 	SPSERVER_LIB  = -L<path_to_spserver_library> -lspserver
+
+	LIBEVENT_LIB = -L<path_to_libevent> -levent
 
 	SPDICT_INCL = -I<path_to_spdict_include>
 	SPDICT_LIB  = -L<path_to_spdict_library> -lspdict
@@ -47,9 +52,9 @@ $ make
 This will build the sptalkd program.
 
 $ ./sptalkd -v
-Usage: ./sptalkd [-p <port>] [-t <threads>]
+Usage: ./sptalkd [-p <port>] [-t <threads>] [-h <domain>]
 
-$ ./sptalkd
+$ ./sptalkd -h <domain>
 [msg] This server is listening on port [5222].
 
 

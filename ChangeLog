@@ -1,5 +1,8 @@
 
-
+2007-07-31 Stephen Liu <stephen.nil@gmail.com>
+	* ignore presence/subscribe iq packet when the subscription is both
+	* don't truncate origin file directly, write into a temp file, and then rename
+	* test with spxml(revision:22), spserver(revision:16), spdict(revision:6)
 
 2007-05-25 Stephen Liu <stephen.nil@gmail.com>
 

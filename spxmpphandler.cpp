@@ -160,7 +160,7 @@ SP_XmppCompletionHandler :: ~SP_XmppCompletionHandler()
 
 void SP_XmppCompletionHandler :: completionMessage( SP_Message * msg )
 {
-#if 1
+#ifdef DEBUG
 	printf( "message completed { completion key : %d }\n", msg->getCompletionKey() );
 
 	printf( "\tsuccess {" );
@@ -174,6 +174,8 @@ void SP_XmppCompletionHandler :: completionMessage( SP_Message * msg )
 		printf( " %d", msg->getFailure()->get( i ).mKey );
 	}
 	printf( "}\n" );
+
+	printf( "%s\n", (char*)msg->getMsg()->getBuffer() );
 #endif
 
 	delete msg;

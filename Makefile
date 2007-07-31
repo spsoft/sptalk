@@ -14,8 +14,12 @@ ifeq ($(origin version), undefined)
 	version = 0.1
 endif
 
+CFLAGS += -DDEBUG
+
 SPSERVER_INCL = -I../spserver/
-SPSERVER_LIB  = -L../spserver/ -lspserver -levent
+SPSERVER_LIB  = -L../spserver/ -lspserver
+
+LIBEVENT_LIB  = -L../libevent -levent
 
 SPDICT_INCL = -I../spdict/
 SPDICT_LIB  = -L../spdict/ -lspdict
@@ -24,7 +28,7 @@ SPXML_INCL = -I../spxml/
 SPXML_LIB  = -L../spxml/ -lspxml
 
 CFLAGS  += $(SPSERVER_INCL) $(SPDICT_INCL) $(SPXML_INCL)
-LDFLAGS += $(SPSERVER_LIB) $(SPDICT_LIB) $(SPXML_LIB) -lpthread -lresolv
+LDFLAGS += $(SPSERVER_LIB) $(SPDICT_LIB) $(SPXML_LIB) $(LIBEVENT_LIB) -lpthread -lresolv
 
 #-------------------Cprof related Macros----------------
 ifeq ($(cprof), 1)
