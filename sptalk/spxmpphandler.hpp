@@ -7,8 +7,8 @@
 #ifndef __spxmpphandler_hpp__
 #define __spxmpphandler_hpp__
 
-#include "sphandler.hpp"
-#include "spresponse.hpp"
+#include "spserver/sphandler.hpp"
+#include "spserver/spresponse.hpp"
 
 class SP_XmppJid;
 

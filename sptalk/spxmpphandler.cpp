@@ -15,12 +15,12 @@
 #include "spxmppaction.hpp"
 #include "spxmppsession.hpp"
 
-#include "sprequest.hpp"
-#include "spresponse.hpp"
-#include "spbuffer.hpp"
+#include "spserver/sprequest.hpp"
+#include "spserver/spresponse.hpp"
+#include "spserver/spbuffer.hpp"
 
-#include "spxmlnode.hpp"
-#include "spdomparser.hpp"
+#include "spxml/spxmlnode.hpp"
+#include "spxml/spdomparser.hpp"
 
 //---------------------------------------------------------
 
@@ -99,10 +99,10 @@ int SP_XmppHandler :: handle( SP_Request * request, SP_Response * response )
 				SP_XmppAction::doPrivateGet( &iqPacket, response->getReply()->getMsg(), mJid );
 			} else {
 				SP_XmppAction::doUnavailableGet( &iqPacket, response->getReply()->getMsg(), mJid );
-				printf( "unavailable : %s\n", domBuffer.getBuffer() );
+				//printf( "unavailable : %s\n", domBuffer.getBuffer() );
 			}
 		} else if( 0 == strcmp( "presence", node->getName() ) ) {
-			printf( "presence: %s\n", domBuffer.getBuffer() );
+			//printf( "presence: %s\n", domBuffer.getBuffer() );
 
 			SP_XmppPresence prPacket( node );
 
@@ -114,17 +114,17 @@ int SP_XmppHandler :: handle( SP_Request * request, SP_Response * response )
 				SP_XmppAction::doPresenceUnsub( &prPacket, response, mJid );
 			} else {
 				//SP_XmppAction::doPresencePub( &prPacket, response, mJid );
-				printf( "pub : %s\n", domBuffer.getBuffer() );
+				//printf( "pub : %s\n", domBuffer.getBuffer() );
 			}
 		} else if( 0 == strcmp( "message", node->getName() ) ) {
 			SP_XmppPacket packet( node );
 			if( packet.isType( "chat" ) ) {
 				SP_XmppAction::doMessageChat( &packet, node, response, mJid );
 			} else {
-				printf( "ignore: %s\n", domBuffer.getBuffer() );
+				//printf( "ignore: %s\n", domBuffer.getBuffer() );
 			}
 		} else {
-			printf( "ignore: %s\n", domBuffer.getBuffer() );
+			//printf( "ignore: %s\n", domBuffer.getBuffer() );
 			delete node;
 		}
 	}

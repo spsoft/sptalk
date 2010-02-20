@@ -18,8 +18,8 @@
 #include "spxmppfiledb.hpp"
 #include "spxmppentity.hpp"
 
-#include "spxmlnode.hpp"
-#include "spdomparser.hpp"
+#include "spxml/spxmlnode.hpp"
+#include "spxml/spdomparser.hpp"
 
 static SP_XmlDomParser * loadFile( const char * path )
 {

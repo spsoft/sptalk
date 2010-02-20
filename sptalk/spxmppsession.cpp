@@ -9,9 +9,9 @@
 
 #include "spxmppsession.hpp"
 
-#include "sputils.hpp"
+#include "spserver/sputils.hpp"
 
-#include "spdictionary.hpp"
+#include "spdict/spdictionary.hpp"
 
 SP_XmppSession :: SP_XmppSession( const char * resource )
 {

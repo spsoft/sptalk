@@ -11,7 +11,7 @@
 #include "spxmppjid.hpp"
 #include "spxmppentity.hpp"
 
-#include "spxmlnode.hpp"
+#include "spxml/spxmlnode.hpp"
 
 SP_XmppPacket :: SP_XmppPacket( SP_XmlElementNode * node )
 {

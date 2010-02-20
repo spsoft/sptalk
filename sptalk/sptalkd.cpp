@@ -12,7 +12,7 @@
 #include <signal.h>
 #include <sys/stat.h>
 
-#include "spserver.hpp"
+#include "spserver/spserver.hpp"
 
 #include "spxmpphandler.hpp"
 

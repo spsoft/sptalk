@@ -10,7 +10,7 @@
 
 #include "spxmppentity.hpp"
 
-#include "sputils.hpp"  // in spserver, for SP_ArrayList
+#include "spserver/sputils.hpp"  // in spserver, for SP_ArrayList
 
 SP_XmppUser :: SP_XmppUser( const char * username )
 {

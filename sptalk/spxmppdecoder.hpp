@@ -7,7 +7,7 @@
 #ifndef __spxmppdecoder_hpp__
 #define __spxmppdecoder_hpp__
 
-#include "spmsgdecoder.hpp"
+#include "spserver/spmsgdecoder.hpp"
 
 class SP_XmlNodeList;
 class SP_XmlElementNode;

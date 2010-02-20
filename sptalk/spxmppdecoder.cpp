@@ -8,11 +8,11 @@
 
 #include "spxmppdecoder.hpp"
 
-#include "spxmlparser.hpp"
-#include "spxmlnode.hpp"
-#include "spxmlevent.hpp"
+#include "spxml/spxmlparser.hpp"
+#include "spxml/spxmlnode.hpp"
+#include "spxml/spxmlevent.hpp"
 
-#include "spbuffer.hpp"
+#include "spserver/spbuffer.hpp"
 
 SP_XmppDecoder :: SP_XmppDecoder()
 {

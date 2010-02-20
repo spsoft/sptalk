@@ -17,10 +17,10 @@
 #include "spxmppjid.hpp"
 #include "spxmppsession.hpp"
 
-#include "spxmlnode.hpp"
-#include "spdomparser.hpp"
+#include "spxml/spxmlnode.hpp"
+#include "spxml/spdomparser.hpp"
 
-#include "spbuffer.hpp"
+#include "spserver/spbuffer.hpp"
 
 int SP_XmppAction :: doAuthGet( SP_XmppIQ * iqPacket, SP_Buffer * reply )
 {

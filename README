@@ -26,23 +26,16 @@ You can get the code from the sptalk home page:
 
 2.Building
 
-Before building sptalk, libevent/spxml/spserver/spdict must been installed.
-About detail revision of spxml/spserver/spdict, please see ChangLog.
+Before building sptalk, libevent must been installed.
 
-You can get the code of spxml/spserver/spdict from their home pages.
+You can donwload libevent from its home page:
 
-Edit sptalk/Makefile to specify the path of libevent/spxml/spserver/spdict:
+	http://www.monkey.org/~provos/libevent/
 
-	SPXML_INCL = -I<path_to_spxml_include>
-	SPXML_LIB  = -L<path_to_spxml_library> -lspxml
+Edit spserver/Makefile to specify the path of libevent:
 
-	SPSERVER_INCL = -I<path_to_spserver_include>
-	SPSERVER_LIB  = -L<path_to_spserver_library> -lspserver
-
-	LIBEVENT_LIB = -L<path_to_libevent> -levent
-
-	SPDICT_INCL = -I<path_to_spdict_include>
-	SPDICT_LIB  = -L<path_to_spdict_library> -lspdict
+	LIBEVENT_INCL = -I<path_to_libevent_include>
+	LIBEVENT_LIB  = -L<path_to_libevent_library> -levent
 
 To build sptalk, type
 

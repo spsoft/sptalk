@@ -9,7 +9,7 @@
 
 #include <pthread.h>
 
-#include "spresponse.hpp"
+#include "spserver/spresponse.hpp"
 
 #include "spxmppdefine.hpp"
 
