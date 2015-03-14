@@ -1,0 +1,1 @@
+A simple [jabber](http://www.jabber.org/) server which is built upon libevent/[spserver](http://code.google.com/p/spserver/)/[spxml](http://code.google.com/p/spxml)/[spdict](http://code.google.com/p/spdict).
